@@ -1,0 +1,22 @@
+- name: Install nodejs and npm
+  become: true
+  apt:
+    name: ["nodejs", "npm"]
+  tags:
+    - install
+    - node
+- name: Install nvm
+  shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+  args:
+    creates: "{{ lookup('env', 'HOME') }}/.nvm/nvm.sh"
+  tags:
+    - install
+    - node
+
+- name: Install correct version of Node
+  become: yes
+  become_user: root
+  shell: "source /root/.nvm/nvm.sh && nvm install 16 && nvm use 16" 
+  args:
+    executable: /bin/bash
