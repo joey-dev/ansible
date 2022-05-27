@@ -1,7 +1,7 @@
-- name: Install System Packages (curl, unzip)
+- name: Install System Packages (curl, unzip, i3)
   become: true
   apt:
-    name: ["curl", "unzip"]
+    name: ["curl", "unzip", "i3"]
   tags:
     - install
     - core
