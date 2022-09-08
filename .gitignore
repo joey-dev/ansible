@@ -1,0 +1,5 @@
+ansibleInstalledApps.txt
+currentInstalledApps.txt
+notInAnsible.txt
+notInAnsibleIgnore.local.txt
+
