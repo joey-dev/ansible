@@ -1,7 +1,7 @@
 - name: Install packages
   become: true
   apt:
-      name: ["curl", "unzip", "i3", "fzf", "tmux", "xclip", "tldr", "flameshot", "brightnessctl", "make", "neovim"]
+      name: ["curl", "unzip", "i3", "fzf", "tmux", "xclip", "tldr", "flameshot", "brightnessctl", "make", "neovim", "rofi"]
   tags:
     - install
     - core
