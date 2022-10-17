@@ -18,6 +18,7 @@
     - import_tasks: tasks/core-setup.yml
     - import_tasks: tasks/node-setup.yml
     - import_tasks: tasks/npm-packages.yml
+    - import_tasks: tasks/php-setup.yml
 #    - include: tasks/zsh-setup.yml
 #    - include: tasks/slack-setup.yml
 #    - include: tasks/personal-projects.yml

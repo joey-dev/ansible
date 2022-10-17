@@ -1,0 +1,48 @@
+- name: Add php ppa
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+    update_cache: true
+  tags:
+    - install
+    - php
+
+- name: Install php extensions
+  ansible.builtin.apt:
+    pkg:
+      - php8.1-cli
+      - php8.1-mysql
+      - php8.1-curl
+      - php8.1-xml
+      - php8.1-mbstring
+      - php8.1-intl
+    state: present
+    update_cache: false
+  tags:
+    - install
+    - php
+
+- name: Download and validate composer install file
+  ansible.builtin.get_url:
+    checksum: sha384:55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae
+    dest: /tmp/
+    url: https://getcomposer.org/installer
+    validate_certs: true
+
+- name: Run composer installer
+  ansible.builtin.shell: php /tmp/installer --install-dir=/usr/local/bin --filename=composer
+  args:
+    creates: /usr/local/bin/composer
+
+- name: Remove composer installer
+  ansible.builtin.file:
+    path: /tmp/installer
+    state: absent
+
+- name: Make composer executable
+  ansible.builtin.file:
+    mode: a+x
+    path: /usr/local/bin/composer
+    state: file
+
