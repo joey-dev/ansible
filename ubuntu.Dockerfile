@@ -1,5 +1,3 @@
-
-  
 FROM ubuntu:focal
 ARG TAGS
 WORKDIR /usr/local/bin

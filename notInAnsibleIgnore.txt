@@ -1,3 +1,4 @@
 stow
 ubuntu
 docker-compose
+google-chrome

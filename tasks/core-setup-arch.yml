@@ -1,14 +1,6 @@
-- name: Install ubuntu ppa
-  become: true
-  ansible.builtin.shell: add-apt-repository ppa:aslatter/ppa
-  when: ansible_facts['distribution'] == "Ubuntu"
-  tags:
-    - install
-    - core
-
 - name: Install packages
   become: true
-  apt:
+  pacman:
       name: ["curl", "unzip", "i3", "fzf", "tmux", "xclip", "tldr", "flameshot", "brightnessctl", "make", "neovim", "rofi", "alacritty", "zsh"]
   tags:
     - install

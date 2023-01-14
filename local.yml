@@ -2,6 +2,8 @@
   vars:
     source_key: "./.ssh/id_rsa"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+    pamac_conf_file: /etc/pamac.conf
+
   pre_tasks:
   - name: Update Apt
     become: true
@@ -9,13 +11,29 @@
       force_apt_get: true
       update_cache: true
       state: present
+    when: ansible_facts['distribution'] == "Ubuntu"
+    tags:
+      - install
+      - core
+  - name: Update Pacman
+    become: true
+    pacman:
+      update_cache: true
+      upgrade: true
+      state: present
+    when: ansible_facts['distribution'] == "Archlinux"
     tags:
       - install
       - core
   tasks:
     - import_tasks: tasks/ssh.yml
     - import_tasks: tasks/git-setup.yml
-    - import_tasks: tasks/core-setup.yml
+
+    - import_tasks: tasks/core-setup-ubuntu.yml
+      when: ansible_facts['distribution'] == "Ubuntu"
+    - import_tasks: tasks/core-setup-arch.yml
+      when: ansible_facts['distribution'] == "Archlinux"
+
     - import_tasks: tasks/node-setup.yml
     - import_tasks: tasks/npm-packages.yml
     - import_tasks: tasks/php-setup.yml
