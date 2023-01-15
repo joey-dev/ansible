@@ -1,13 +1,7 @@
 - name: Change shell to zsh
   shell: chsh -s $(which zsh)
   become: yes
-  tags: &tags_for_zsh_tasks [ 'install', 'productivity', 'dotfiles', 'zsh' ]
-
-- name: Check that the somefile.conf exists
-  stat:
-    path: /home/joey/.oh-my-zsh
-  register: oh_my_stats
-  tags: 'no'
+  tags: &tags_for_zsh_tasks [ 'Install', 'Productivity', 'Dotfiles', 'Zsh' ]
 
 - name: Oh-My-Zsh
   #shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh > ~/.oh-my-installer && chmod +x ~/.oh-my-installer && ~/.oh-my-installer
@@ -19,7 +13,7 @@
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
     dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
-  tags: &tags_for_zsh_tasks_plugins [ 'install', 'productivity', 'dotfiles', 'zsh', 'zsh_plugins' ]
+  tags: &tags_for_zsh_tasks_plugins [ 'Zsh', 'Zsh_plugins' ]
 
 - name: Install zsh-auto-notify
   ansible.builtin.git:

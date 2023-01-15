@@ -4,9 +4,7 @@
     repo: ppa:ondrej/php
     state: present
     update_cache: true
-  tags:
-    - install
-    - php
+  tags: &tags_for_php_tasks [ 'Install', 'Php' ]
 
 - name: Install php extensions
   ansible.builtin.apt:
@@ -19,9 +17,7 @@
       - php8.1-intl
     state: present
     update_cache: false
-  tags:
-    - install
-    - php
+  tags: *tags_for_php_tasks
 
 - name: Download and validate composer install file
   ansible.builtin.get_url:
@@ -29,32 +25,24 @@
     dest: /tmp/
     url: https://getcomposer.org/installer
     validate_certs: true
-  tags:
-    - install
-    - php
+  tags: *tags_for_php_tasks
 
 - name: Run composer installer
   shell: php /tmp/installer --install-dir=/usr/local/bin --filename=composer
   args:
     creates: /usr/local/bin/composer
-  tags:
-    - install
-    - php
+  tags: *tags_for_php_tasks
 
 - name: Remove composer installer
   ansible.builtin.file:
     path: /tmp/installer
     state: absent
-  tags:
-    - install
-    - php
+  tags: *tags_for_php_tasks
 
 - name: Make composer executable
   ansible.builtin.file:
     mode: a+x
     path: /usr/local/bin/composer
     state: file
-  tags:
-    - install
-    - php
+  tags: *tags_for_php_tasks
 

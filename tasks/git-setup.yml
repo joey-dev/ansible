@@ -3,14 +3,12 @@
     name: user.email
     scope: global
     value: "joeystil3@gmail.com"
-  tags:
-  - git-personal
+  tags: &tags_for_git_personal_tasks [ 'Install', 'Personal', 'Git_Personal']
 
 - name: Git personal setup name
   git_config:
     name: user.name
     scope: global
     value: "Joey"
-  tags:
-  - git-personal
+  tags: *tags_for_git_personal_tasks
 

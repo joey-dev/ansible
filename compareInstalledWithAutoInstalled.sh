@@ -1,6 +1,6 @@
 apt list --installed | grep "installed]$" > currentInstalledApps.txt
 
-cat tasks/core-setup.yml | grep "name: \[" > autoInstalled.txt
+cat tasks/core-setup-ubuntu.yml | grep "name: \[" > autoInstalled.txt
 cat autoInstalled.txt | sed 's/name: \[//' | sed 's/\]//' | sed 's/    //' > autoInstalled2.txt
 awk -F',' '{ for( i=1; i<=NF; i++ ) print $i }' <<< cat autoInstalled2.txt > autoInstalled3.txt
 cat autoInstalled3.txt | sed 's/ //' | sed 's/\"//' | sed 's/\"//' > autoInstalled4.txt

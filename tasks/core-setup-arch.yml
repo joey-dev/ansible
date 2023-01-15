@@ -2,12 +2,9 @@
   become: true
   pacman:
       name: ["curl", "unzip", "i3", "fzf", "tmux", "xclip", "tldr", "flameshot", "brightnessctl", "make", "neovim", "rofi", "alacritty", "zsh"]
-  tags:
-    - install
-    - core
+  tags: &tags_for_core_tasks [ 'Install', 'Update', 'Core' ]
+
 - name: Install neovim plugin
   shell: curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  tags:
-    - install
-    - core
+  tags: *tags_for_core_tasks
 

@@ -12,9 +12,7 @@
       update_cache: true
       state: present
     when: ansible_facts['distribution'] == "Ubuntu"
-    tags:
-      - install
-      - core
+    tags: &all_tags [ 'Install', 'Update', 'Personal', 'Core', 'Chrome', 'Dotfiles', 'Stow', 'Zsh', 'Zsh_plugins', 'Git_personal', 'Node', 'Php', 'Ssh' ]
   - name: Update Pacman
     become: true
     pacman:
@@ -22,14 +20,12 @@
       upgrade: true
       state: present
     when: ansible_facts['distribution'] == "Archlinux"
-    tags:
-      - install
-      - core
+    tags: *all_tags
+
   tasks:
     - import_tasks: tasks/ssh.yml
     - import_tasks: tasks/git-setup.yml
 
-#    - include: tasks/core-setup-ubuntu.yml
     - import_tasks: tasks/core-setup-ubuntu.yml
       when: ansible_facts['distribution'] == "Ubuntu"
     - import_tasks: tasks/core-setup-arch.yml
@@ -38,11 +34,7 @@
     - import_tasks: tasks/node-setup.yml
     - import_tasks: tasks/npm-packages.yml
     - import_tasks: tasks/php-setup.yml
-    - include: tasks/zsh-setup.yml
-#    - include: tasks/slack-setup.yml
-#    - include: tasks/personal-projects.yml
-#    - include: tasks/nvim-setup.yml
-#    - include: tasks/brave.yml
+    - import_tasks: tasks/zsh-setup.yml
     - import_tasks: tasks/dotfiles.yml
     - import_tasks: tasks/chrome.yml
 

@@ -1,7 +1,7 @@
 - name: Install ubuntu ppa
   become: true
   shell: add-apt-repository ppa:aslatter/ppa
-  tags: &tags_for_core_tasks [ 'install', 'update', 'productivity', 'core' ]
+  tags: &tags_for_core_tasks [ 'Install', 'Update', 'Core' ]
 
 - name: Install packages
   become: true

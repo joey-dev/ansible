@@ -2,21 +2,17 @@
   npm:
     name: eslint
     global: yes
-  tags:
-    - install
-    - node
+  tags: &tags_for_node_tasks [ 'Install', 'Node' ]
+  
 - name: Install Typescript
   npm:
     name: typescript
     global: yes
-  tags:
-    - install
-    - node
+  tags: *tags_for_node_tasks
+
 - name: Install TS-Node
   npm:
     name: ts-node
     global: yes
-  tags:
-    - install
-    - node
+  tags: *tags_for_node_tasks
 

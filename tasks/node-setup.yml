@@ -2,9 +2,7 @@
   become: true
   apt:
     name: ["nodejs", "npm"]
-  tags:
-    - install
-    - node
+  tags: &tags_for_node_tasks [ 'Install', 'Node' ]
 - name: Install nvm
   shell: >
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
@@ -20,3 +18,5 @@
   shell: "source /root/.nvm/nvm.sh && nvm install 16 && nvm use 16" 
   args:
     executable: /bin/bash
+  tags: *tags_for_node_tasks
+
