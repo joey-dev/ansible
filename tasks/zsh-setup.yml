@@ -1,0 +1,35 @@
+- name: Change shell to zsh
+  shell: chsh -s $(which zsh)
+  become: yes
+  tags: &tags_for_zsh_tasks [ 'install', 'productivity', 'dotfiles', 'zsh' ]
+
+- name: Check that the somefile.conf exists
+  stat:
+    path: /home/joey/.oh-my-zsh
+  register: oh_my_stats
+  tags: 'no'
+
+- name: Oh-My-Zsh
+  #shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh > ~/.oh-my-installer && chmod +x ~/.oh-my-installer && ~/.oh-my-installer
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  tags: *tags_for_zsh_tasks
+  become: yes
+
+- name: Install zsh-autosuggestions
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+    dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
+  tags: *tags_for_zsh_tasks
+
+- name: Install zsh-auto-notify
+  ansible.builtin.git:
+    repo: 'https://github.com/MichaelAquilina/zsh-auto-notify.git'
+    dest: "~/.oh-my-zsh/plugins/auto-notify"
+  tags: *tags_for_zsh_tasks
+
+- name: Install zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+    dest: "~/.oh-my-zsh/plugins/zsh-syntax-highlighting"
+  tags: *tags_for_zsh_tasks
+

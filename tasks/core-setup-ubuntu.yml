@@ -1,20 +1,15 @@
 - name: Install ubuntu ppa
   become: true
-  ansible.builtin.shell: add-apt-repository ppa:aslatter/ppa
-  tags:
-    - install
-    - core
+  shell: add-apt-repository ppa:aslatter/ppa
+  tags: &tags_for_core_tasks [ 'install', 'update', 'productivity', 'core' ]
 
 - name: Install packages
   become: true
   apt:
-      name: ["curl", "unzip", "i3", "fzf", "tmux", "xclip", "tldr", "flameshot", "brightnessctl", "make", "neovim", "rofi", "alacritty", "zsh"]
-  tags:
-    - install
-    - core
+      name: ["curl", "unzip", "i3", "fzf", "tmux", "xclip", "tldr", "flameshot", "brightnessctl", "make", "neovim", "rofi", "alacritty", "zsh", "xterm"]
+  tags: *tags_for_core_tasks
+
 - name: Install neovim plugin
   shell: curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  tags:
-    - install
-    - core
+  tags: *tags_for_core_tasks
 

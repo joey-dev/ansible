@@ -29,20 +29,32 @@
     dest: /tmp/
     url: https://getcomposer.org/installer
     validate_certs: true
+  tags:
+    - install
+    - php
 
 - name: Run composer installer
-  ansible.builtin.shell: php /tmp/installer --install-dir=/usr/local/bin --filename=composer
+  shell: php /tmp/installer --install-dir=/usr/local/bin --filename=composer
   args:
     creates: /usr/local/bin/composer
+  tags:
+    - install
+    - php
 
 - name: Remove composer installer
   ansible.builtin.file:
     path: /tmp/installer
     state: absent
+  tags:
+    - install
+    - php
 
 - name: Make composer executable
   ansible.builtin.file:
     mode: a+x
     path: /usr/local/bin/composer
     state: file
+  tags:
+    - install
+    - php
 
